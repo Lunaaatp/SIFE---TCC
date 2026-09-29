@@ -1,235 +1,466 @@
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login - SIFE</title>
-        
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="pt-br">
 
-        <style>
-            :root {
-                --primary-red: #d32f2f;
-                --bg-light: #f4f7f9;
-                --text-dark: #2d3436;
-            }
+<head>
 
-            body {
-                font-family: 'Inter', sans-serif;
-                background-color: var(--bg-light);
-                height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0;
-            }
+    <meta charset="UTF-8">
 
-            .auth-container {
-                display: flex;
-                width: 1000px;
-                max-width: 95%;
-                height: 580px;
-                background: white;
-                border-radius: 30px;
-                overflow: hidden;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            }
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-            .auth-sidebar {
-                flex: 1;
-                background-color: var(--primary-red);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 40px;
-            }
+    <title>Login - SIFE</title>
 
-            .logo-box {
-                background: white;
-                padding: 35px;
-                border-radius: 20px;
-                text-align: center;
-                width: 100%;
-                max-width: 320px;
-            }
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
-            .auth-form-section {
-                flex: 1.2;
-                padding: 60px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
+    <style>
 
-            .brand-title {
-                color: var(--primary-red);
-                font-weight: 800;
-                font-size: 2.8rem;
-                margin-bottom: 0;
-                text-align: center;
-            }
+        * {
+            box-sizing: border-box;
+        }
 
-            .brand-subtitle {
-                color: #64748b;
-                text-align: center;
-                margin-bottom: 30px;
-                font-size: 1rem;
-                font-weight: 500;
-            }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7f9;
 
-            .input-group-custom {
-                display: flex;
-                align-items: center;
-                margin-bottom: 20px;
-                position: relative;
-            }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-            .input-group-custom i {
-                color: var(--primary-red);
-                font-size: 1.1rem;
-                margin-right: 15px;
-                width: 20px;
-                text-align: center;
-            }
+        .login-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
 
-            .form-control-custom {
-                flex: 1;
-                padding: 12px 18px;
-                border: 1px solid #e2e8f0;
-                border-radius: 12px;
-                background-color: #fff;
-                transition: 0.3s;
-                font-size: 0.95rem;
-            }
+        .login-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 40px;
 
-            .form-control-custom:focus {
-                outline: none;
-                border-color: var(--primary-red);
-                box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.1);
-            }
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.10);
+        }
 
-            .auth-options {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 25px;
-                font-size: 0.85rem;
-            }
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-            .auth-options a {
-                color: var(--primary-red);
-                text-decoration: none;
-                font-weight: 600;
-            }
+        .logo h1 {
+            margin: 0;
 
-            .btn-login {
-                background-color: var(--primary-red);
-                color: white;
-                border: none;
-                width: 100%;
-                padding: 14px;
-                border-radius: 12px;
-                font-weight: 700;
-                font-size: 1.1rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 12px;
-                transition: 0.3s;
-                box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
-            }
+            color: #d32f2f;
 
-            .btn-login:hover {
-                background-color: #b71c1c;
-                transform: translateY(-2px);
-            }
+            font-size: 42px;
 
-            .auth-footer {
-                margin-top: 25px;
-                text-align: center;
-                font-size: 0.9rem;
-                color: #64748b;
-            }
+            font-weight: 800;
+        }
 
-            .auth-footer a {
-                color: var(--primary-red);
-                text-decoration: none;
-                font-weight: 700;
-            }
+        .logo p {
+            margin-top: 5px;
 
-            @media (max-width: 768px) {
-                .auth-container { flex-direction: column; height: auto; margin: 20px; }
-                .auth-sidebar { display: none; }
-                .auth-form-section { padding: 40px 25px; }
-            }
-        </style>
-    </head>
-    <body>
+            color: #777;
 
-    <div class="auth-container">
-        <div class="auth-sidebar">
-            <div class="logo-box shadow-sm">
-                <img src="{{ asset('assets/img/SIFE.png') }}" alt="SIFE Logo" style="width: 100%;">
-            </div>
+            font-size: 14px;
+        }
+
+        .title {
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+        .title h2 {
+            color: #222;
+
+            font-size: 26px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .title p {
+            color: #777;
+
+            font-size: 14px;
+        }
+
+        .form-label {
+            color: #333;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+        }
+
+        .form-control-custom {
+            width: 100%;
+
+            height: 48px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 9px;
+
+            padding: 0 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+
+            background: #fff;
+        }
+
+        .form-control-custom:focus {
+            border-color: #d32f2f;
+
+            box-shadow:
+                0 0 0 3px rgba(211, 47, 47, 0.10);
+        }
+
+        .remember-area {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-top: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .remember {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+        .remember input {
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #d32f2f;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            width: 100%;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #d32f2f;
+
+            color: white;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+        .btn-login:hover {
+            background: #b71c1c;
+        }
+
+        .auth-footer {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+        .auth-footer a {
+            color: #d32f2f;
+
+            text-decoration: none;
+
+            font-weight: 700;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-card">
+
+
+        {{-- LOGO --}}
+
+        <div class="logo">
+
+            <h1>SIFE</h1>
+
+            <p>
+                Sistema Inteligente de Frequência Escolar
+            </p>
+
         </div>
 
-        <div class="auth-form-section">
-            <h1 class="brand-title">SIFE</h1>
-            <p class="brand-subtitle">Sistema Inteligente de Frequência Escolar</p>
 
-            @if ($errors->any())
-                <div class="alert alert-danger p-2 rounded-3 small mb-3 text-center" style="font-size: 0.85rem;">
+        {{-- TÍTULO --}}
+
+        <div class="title">
+
+            <h2>Bem-vindo!</h2>
+
+            <p>
+                Entre na sua conta para continuar
+            </p>
+
+        </div>
+
+
+        {{-- ERROS --}}
+
+        @if ($errors->any())
+
+            <div class="alert alert-danger">
+
+                <ul class="mb-0">
+
                     @foreach ($errors->all() as $error)
-                        <i class="fas fa-exclamation-circle me-1"></i> {{ $error }}
+
+                        <li>
+                            {{ $error }}
+                        </li>
+
                     @endforeach
-                </div>
-            @endif
 
-            <form action="{{ route('login.auth') }}" method="POST">
-                @csrf
+                </ul>
 
-                <div class="input-group-custom">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" name="email" class="form-control-custom" placeholder="Digite seu email" value="{{ old('email') }}" required>
-                </div>
-
-                <div class="input-group-custom">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="password" class="form-control-custom" placeholder="Digite sua senha" required>
-                </div>
-
-                <div class="input-group-custom">
-                    <i class="fas fa-user-shield"></i>
-                    <select name="role" class="form-control-custom" style="cursor: pointer;" required>
-                        <option value="" disabled selected>Acessar como...</option>
-                        <option value="coordenador">Coordenador</option>
-                        <option value="professor">Professor</option>
-                        <option value="aluno">Aluno</option>
-                    </select>
-                </div>
-
-                <div class="auth-options">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                        <label class="form-check-label text-muted" for="remember">Lembrar-me</label>
-                    </div>
-                    <a href="{{ route('password.show') }}">Esqueceu a senha?</a>
-                </div>
-
-                <button type="submit" class="btn-login">
-                    <i class="fas fa-right-to-bracket"></i> Entrar
-                </button>
-            </form>
-
-            <div class="auth-footer">
-                Não tem conta? <a href="{{ route('signup') }}">Criar Conta</a>
             </div>
+
+        @endif
+
+
+        {{-- SUCESSO --}}
+
+        @if (session('success'))
+
+            <div class="alert alert-success">
+
+                {{ session('success') }}
+
+            </div>
+
+        @endif
+
+
+        {{-- FORMULÁRIO --}}
+
+        <form
+            action="{{ route('login.auth') }}"
+            method="POST"
+        >
+
+            @csrf
+
+
+            {{-- E-MAIL --}}
+
+            <div class="mb-3">
+
+                <label
+                    for="email"
+                    class="form-label"
+                >
+                    E-mail
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control-custom"
+                    value="{{ old('email') }}"
+                    placeholder="Digite seu e-mail"
+                    required
+                >
+
+            </div>
+
+
+            {{-- SENHA --}}
+
+            <div class="mb-3">
+
+                <label
+                    for="password"
+                    class="form-label"
+                >
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control-custom"
+                    placeholder="Digite sua senha"
+                    required
+                >
+
+            </div>
+
+
+            {{-- TIPO DE ACESSO --}}
+
+            <div class="mb-3">
+
+                <label
+                    for="role"
+                    class="form-label"
+                >
+                    Tipo de acesso
+                </label>
+
+                <select
+                    name="role"
+                    id="role"
+                    class="form-control-custom"
+                    required
+                >
+
+                    <option
+                        value=""
+                        disabled
+                        {{ old('role') ? '' : 'selected' }}
+                    >
+                        Acessar como...
+                    </option>
+
+                    <option
+                        value="coordenador"
+                        {{ old('role') == 'coordenador' ? 'selected' : '' }}
+                    >
+                        Coordenador
+                    </option>
+
+                    <option
+                        value="professor"
+                        {{ old('role') == 'professor' ? 'selected' : '' }}
+                    >
+                        Professor
+                    </option>
+
+                    <option
+                        value="aluno"
+                        {{ old('role') == 'aluno' ? 'selected' : '' }}
+                    >
+                        Aluno
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            {{-- LEMBRAR / ESQUECI --}}
+
+            <div class="remember-area">
+
+                <label class="remember">
+
+                    <input
+                        type="checkbox"
+                        name="remember"
+                        value="1"
+                    >
+
+                    <span>
+                        Lembrar-me
+                    </span>
+
+                </label>
+
+
+                <a
+                    href="#"
+                    class="forgot-password"
+                >
+                    Esqueci minha senha
+                </a>
+
+            </div>
+
+
+            {{-- BOTÃO --}}
+
+            <button
+                type="submit"
+                class="btn-login"
+            >
+                Entrar
+            </button>
+
+        </form>
+
+
+        {{-- CADASTRO --}}
+
+        <div class="auth-footer">
+
+            Não tem conta?
+
+            <a href="{{ route('signup') }}">
+                Criar Conta
+            </a>
+
         </div>
+
     </div>
 
-    <x-acessibilidade />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-    </html>
+</div>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+></script>
+
+</body>
+
+</html>

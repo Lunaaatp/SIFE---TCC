@@ -1,221 +1,361 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - SIFE</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Criar Conta - SIFE</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
     <style>
-        :root {
-            --primary-red: #d32f2f;
-            --bg-light: #f4f7f9;
-            --text-dark: #2d3436;
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             margin: 0;
-        }
-
-        .auth-container {
-            display: flex;
-            width: 1000px;
-            max-width: 95%;
-            height: 640px;
-            background: white;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .auth-sidebar {
-            flex: 1;
-            background-color: var(--primary-red);
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7f9;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
         }
 
-        .logo-box {
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            text-align: center;
+        .signup-container {
             width: 100%;
-            max-width: 320px;
+            max-width: 500px;
+            padding: 20px;
         }
 
-        .auth-form-section {
-            flex: 1.2;
-            padding: 50px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .signup-card {
+            background: white;
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
         }
 
-        .brand-title {
-            color: var(--primary-red);
-            font-weight: 800;
-            font-size: 2.8rem;
-            margin-bottom: 0;
-            text-align: center;
-        }
-
-        .brand-subtitle {
-            color: #64748b;
+        .logo {
             text-align: center;
             margin-bottom: 25px;
-            font-size: 1rem;
-            font-weight: 500;
         }
 
-        .input-group-custom {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            position: relative;
+        .logo h1 {
+            margin: 0;
+            color: #d32f2f;
+            font-size: 38px;
+            font-weight: 800;
         }
 
-        .input-group-custom i {
-            color: var(--primary-red);
-            font-size: 1.1rem;
-            margin-right: 15px;
-            width: 20px;
+        .logo p {
+            margin-top: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .title {
             text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .title h2 {
+            font-size: 25px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .title p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
         }
 
         .form-control-custom {
-            flex: 1;
-            padding: 12px 18px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            background-color: #fff;
-            transition: 0.3s;
-            font-size: 0.95rem;
+            width: 100%;
+            height: 48px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            padding: 0 14px;
+            outline: none;
+            transition: 0.2s;
         }
 
         .form-control-custom:focus {
-            outline: none;
-            border-color: var(--primary-red);
-            box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.1);
+            border-color: #d32f2f;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.10);
         }
 
-        .btn-register {
-            background-color: var(--primary-red);
-            color: white;
-            border: none;
+        .btn-create {
             width: 100%;
-            padding: 14px;
-            border-radius: 12px;
+            height: 48px;
+            border: none;
+            border-radius: 9px;
+            background: #d32f2f;
+            color: white;
             font-weight: 700;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: 0.3s;
-            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
             margin-top: 10px;
+            transition: 0.2s;
         }
 
-        .btn-register:hover {
-            background-color: #b71c1c;
-            transform: translateY(-2px);
+        .btn-create:hover {
+            background: #b71c1c;
         }
 
         .auth-footer {
-            margin-top: 25px;
             text-align: center;
-            font-size: 0.9rem;
-            color: #64748b;
+            margin-top: 25px;
+            color: #666;
+            font-size: 14px;
         }
 
         .auth-footer a {
-            color: var(--primary-red);
+            color: #d32f2f;
             text-decoration: none;
             font-weight: 700;
         }
 
-        @media (max-width: 768px) {
-            .auth-container { flex-direction: column; height: auto; margin: 20px; }
-            .auth-sidebar { display: none; }
-            .auth-form-section { padding: 40px 25px; }
+        .auth-footer a:hover {
+            text-decoration: underline;
         }
+
+        .alert {
+            font-size: 14px;
+        }
+
     </style>
+
 </head>
+
 <body>
 
-<div class="auth-container">
-    <div class="auth-sidebar">
-        <div class="logo-box shadow-sm">
-            <img src="{{ asset('assets/img/SIFE.png') }}" alt="SIFE Logo" style="width: 100%;">
-        </div>
-    </div>
+<div class="signup-container">
 
-    <div class="auth-form-section">
-        <h1 class="brand-title">Crie sua Conta</h1>
-        <p class="brand-subtitle">Cadastre-se no Sistema SIFE</p>
+    <div class="signup-card">
+
+        <div class="logo">
+
+            <h1>SIFE</h1>
+
+            <p>
+                Sistema Inteligente de Frequência Escolar
+            </p>
+
+        </div>
+
+
+        <div class="title">
+
+            <h2>Crie sua Conta</h2>
+
+            <p>
+                Cadastre um novo Professor ou Aluno
+            </p>
+
+        </div>
+
+
+        {{-- Mensagens de erro --}}
 
         @if ($errors->any())
-            <div class="alert alert-danger p-2 rounded-3 small mb-3">
-                <ul class="m-0 pl-3">
+
+            <div class="alert alert-danger">
+
+                <ul class="mb-0">
+
                     @foreach ($errors->all() as $error)
+
                         <li>{{ $error }}</li>
+
                     @endforeach
+
                 </ul>
+
             </div>
+
         @endif
 
-        <form action="{{ route('register.store') }}" method="POST">
+
+        {{-- Mensagem de sucesso --}}
+
+        @if (session('success'))
+
+            <div class="alert alert-success">
+
+                {{ session('success') }}
+
+            </div>
+
+        @endif
+
+
+        <form
+            action="{{ route('register.store') }}"
+            method="POST"
+        >
+
             @csrf
 
-            <div class="input-group-custom">
-                <i class="fas fa-user"></i>
-                <input type="text" name="name" class="form-control-custom" placeholder="Nome Completo" value="{{ old('name') }}" required>
+
+            {{-- Nome --}}
+
+            <div class="mb-3">
+
+                <label
+                    for="name"
+                    class="form-label"
+                >
+                    Nome completo
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="form-control-custom"
+                    value="{{ old('name') }}"
+                    placeholder="Digite o nome completo"
+                    required
+                >
+
             </div>
 
-            <div class="input-group-custom">
-                <i class="fas fa-envelope"></i>
-                <input type="email" name="email" class="form-control-custom" placeholder="Digite seu melhor e-mail" value="{{ old('email') }}" required>
+
+            {{-- E-mail --}}
+
+            <div class="mb-3">
+
+                <label
+                    for="email"
+                    class="form-label"
+                >
+                    E-mail
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control-custom"
+                    value="{{ old('email') }}"
+                    placeholder="Digite o e-mail"
+                    required
+                >
+
             </div>
 
-            <div class="input-group-custom">
-                <i class="fas fa-user-shield"></i>
-                <select id="registerRole" name="role" class="form-control-custom" style="cursor: pointer;" required>
-                    <option value="" disabled {{ old('role') ? '' : 'selected' }}>Cadastrar como...</option>
-                    <option value="coordenador" {{ old('role') == 'coordenador' ? 'selected' : '' }}>Coordenador</option>
-                    <option value="professor" {{ old('role') == 'professor' ? 'selected' : '' }}>Professor</option>
-                    <option value="aluno" {{ old('role') == 'aluno' ? 'selected' : '' }}>Aluno</option>
+
+            {{-- Senha --}}
+
+            <div class="mb-3">
+
+                <label
+                    for="password"
+                    class="form-label"
+                >
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control-custom"
+                    placeholder="Digite uma senha"
+                    required
+                >
+
+            </div>
+
+
+            {{-- Tipo de usuário --}}
+
+            <div class="mb-3">
+
+                <label
+                    for="registerRole"
+                    class="form-label"
+                >
+                    Tipo de usuário
+                </label>
+
+                <select
+                    id="registerRole"
+                    name="role"
+                    class="form-control-custom"
+                    required
+                >
+
+                    <option
+                        value=""
+                        disabled
+                        {{ old('role') ? '' : 'selected' }}
+                    >
+                        Cadastrar como...
+                    </option>
+
+                    <option
+                        value="professor"
+                        {{ old('role') == 'professor' ? 'selected' : '' }}
+                    >
+                        Professor
+                    </option>
+
+                    <option
+                        value="aluno"
+                        {{ old('role') == 'aluno' ? 'selected' : '' }}
+                    >
+                        Aluno
+                    </option>
+
                 </select>
+
             </div>
 
-            <div class="input-group-custom">
-                <i class="fas fa-lock"></i>
-                <input type="password" name="password" class="form-control-custom" placeholder="Crie uma senha segura" required>
-            </div>
 
-            <button type="submit" class="btn-register">
-                <i class="fas fa-user-plus"></i> Cadastrar Conta
+            {{-- Botão --}}
+
+            <button
+                type="submit"
+                class="btn-create"
+            >
+                Criar Conta
             </button>
+
         </form>
 
+
         <div class="auth-footer">
-            Já tem uma conta? <a href="{{ route('login') }}">Fazer Login</a>
+
+            Já tem uma conta?
+
+            <a href="{{ route('login') }}">
+                Fazer Login
+            </a>
+
         </div>
+
     </div>
+
 </div>
 
-<x-acessibilidade />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+></script>
+
 </body>
+
 </html>
