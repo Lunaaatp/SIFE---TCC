@@ -1,0 +1,125 @@
+-- CREATE DATABASE sistema_frequencia;
+-- USE sistema_frequencia;
+
+-- CREATE TABLE Usuario(
+-- id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+-- nome VARCHAR(100) NOT NULL,
+-- email VARCHAR(100) NOT NULL UNIQUE,
+-- senha VARCHAR(100) NOT NULL,
+-- data_cadastro DATE NOT NULL
+-- );
+
+-- CREATE TABLE Professor(
+-- id_professor INT AUTO_INCREMENT PRIMARY KEY,
+-- id_usuario INT NOT NULL,
+-- telefone VARCHAR(20),
+-- disciplina_principal VARCHAR(100),
+-- tempo_servico INT,
+-- instituicao VARCHAR(100),
+-- FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario)
+-- );
+
+-- CREATE TABLE Turmas(
+-- id_turma INT AUTO_INCREMENT PRIMARY KEY,
+-- nome_turma VARCHAR(50) NOT NULL,
+-- serie VARCHAR(20),
+-- periodo VARCHAR(20),
+-- id_professor INT NOT NULL,
+-- FOREIGN KEY(id_professor) REFERENCES Professor(id_professor)
+-- );
+
+-- CREATE TABLE Aluno(
+-- id_aluno INT AUTO_INCREMENT PRIMARY KEY,
+-- id_usuario INT NOT NULL,
+-- id_turma INT NOT NULL,
+-- data_nascimento DATE,
+-- FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario),
+-- FOREIGN KEY(id_turma) REFERENCES Turma(id_turma)
+-- );
+
+-- CREATE TABLE Aula(
+-- id_aula INT AUTO_INCREMENT PRIMARY KEY,
+-- id_turma INT NOT NULL,
+-- disciplina VARCHAR(100) NOT NULL,
+-- data DATE NOT NULL,
+-- FOREIGN KEY(id_turma) REFERENCES Turmas(id_turma)
+-- );
+
+-- CREATE TABLE Frequencia(
+-- id_frequencia INT AUTO_INCREMENT PRIMARY KEY,
+-- id_aula INT NOT NULL,
+-- id_aluno INT NOT NULL,
+-- status ENUM('Presente','Falta','Justificado') NOT NULL,
+-- observacao VARCHAR(200),
+-- FOREIGN KEY(id_aula) REFERENCES Aula(id_aula),
+-- FOREIGN KEY(id_aluno) REFERENCES Aluno(id_aluno)
+-- );
+
+-- -- Usuario
+-- INSERT INTO Usuario (nome, email, senha, data_cadastro) VALUES
+-- ('João Silva', 'joao@email.com', '123456', '2026-01-01');
+-- -- Professor (usa id_usuario = 1)
+-- INSERT INTO Professor (id_usuario, telefone, disciplina_principal, tempo_servico, instituicao) VALUES
+-- (1, '11999999999', 'Matemática', 10, 'Escola ABC');
+
+-- -- Turma (usa id_professor = 1)
+-- INSERT INTO Turmas (nome_turma, serie, periodo, id_professor) VALUES
+-- ('Turma A', '1º Ano', 'Manhã', 1);
+
+-- -- Aluno (usa id_usuario = 2 e id_turma = 1)
+-- INSERT INTO Aluno (id_usuario, id_turma, data_nascimento) VALUES
+-- (2, 1, '2010-05-10');
+
+-- -- Aula (usa id_turma = 1)
+-- INSERT INTO Aula (id_turma, disciplina, data) VALUES
+-- (1, 'Matemática', '2026-03-10');
+
+-- -- Frequencia (usa id_aula = 1 e id_aluno = 1)
+-- INSERT INTO Frequencia (id_aula, id_aluno, status, observacao) VALUES
+-- (1, 1, 'Presente', 'Participou normalmente');
+
+-- SHOW TABLES;
+
+-- SELECT * FROM Frequencia;
+
+-- INSERT INTO Usuario (nome, email, senha, data_cadastro) VALUES
+-- ('Ana Souza', 'ana@email.com', '123456', '2026-01-01'),
+-- ('Bruno Lima', 'bruno@email.com', '123456', '2026-01-01'),
+-- ('Carlos Mendes', 'carlos@email.com', '123456', '2026-01-01'),
+-- ('Daniela Rocha', 'daniela@email.com', '123456', '2026-01-01'),
+-- ('Eduardo Alves', 'eduardo@email.com', '123456', '2026-01-01'),
+-- ('Fernanda Costa', 'fernanda@email.com', '123456', '2026-01-01'),
+-- ('Gabriel Martins', 'gabriel@email.com', '123456', '2026-01-01'),
+-- ('Helena Ribeiro', 'helena@email.com', '123456', '2026-01-01'),
+-- ('Igor Santana', 'igor@email.com', '123456', '2026-01-01'),
+-- ('Julia Ferreira', 'julia@email.com', '123456', '2026-01-01');
+
+-- INSERT INTO alunos (id_usuario, id_turma, data_nascimento) VALUES
+-- (2, 1, '2010-01-10'),
+-- (3, 1, '2010-02-15'),
+-- (4, 1, '2010-03-20'),
+-- (5, 1, '2010-04-12'),
+-- (6, 1, '2010-05-18'),
+-- (7, 1, '2010-06-25'),
+-- (8, 1, '2010-07-30'),
+-- (9, 1, '2010-08-14'),
+-- (10, 1, '2010-09-09'),
+-- (11, 1, '2010-10-21');
+
+-- INSERT INTO Frequencia (id_aula, id_aluno, status, observacao) VALUES
+-- (1, 1, 'Presente', 'Participou normalmente'),
+-- (1, 2, 'Presente', 'Participou normalmente'),
+-- (1, 3, 'Presente', 'Participou normalmente'),
+-- (1, 4, 'Presente', 'Participou normalmente'),
+-- (1, 5, 'Presente', 'Participou normalmente'),
+-- (1, 6, 'Presente', 'Participou normalmente'),
+-- (1, 7, 'Presente', 'Participou normalmente'),
+
+-- (1, 8, 'Falta', 'Não compareceu'),
+-- (1, 9, 'Falta', 'Não compareceu'),
+-- (1, 10, 'Falta', 'Não compareceu');
+
+
+
+
+

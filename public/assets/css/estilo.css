@@ -1,0 +1,21 @@
+.fundo{
+    background-color: rgb(171, 168, 168) !important;
+}
+
+.botao{
+    background-color: red !important;
+    color: white !important;
+}
+
+.quadrado{
+    background-color: white !important;
+}
+
+.email{
+    background-color: white !important;
+}
+
+.imagem {
+    width: 100px;
+    height: 50px;
+}

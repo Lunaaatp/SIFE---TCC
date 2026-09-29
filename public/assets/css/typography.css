@@ -1,0 +1,31 @@
+.card {
+    border-radius: 100px;
+}
+
+.table thead {
+    background-color: rgb(255, 255, 255)
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+input.form-control {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+select.form-select {
+    border-radius: 10px;
+}
+
+.badge {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 8px;
+}
+
+.fw-bold{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}

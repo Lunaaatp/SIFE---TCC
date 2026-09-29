@@ -1,0 +1,73 @@
+/* FUNDO GERAL */
+body {
+    background-color: #f5f6fa;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    background: #fff;
+}
+
+/* CONTENT */
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    width: calc(100% - 250px);
+}
+
+/* NAVBAR */
+.navbar {
+    border-radius: 10px;
+}
+
+/* INPUT BUSCA */
+.navbar input {
+    background: #f1f1f1 !important;
+    border: none;
+    border-radius: 8px;
+}
+
+/* CARDS */
+.sife-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.sife-card:hover {
+    transform: translateY(-3px);
+}
+
+/* ICONES */
+.sife-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CORES SUAVES */
+.bg-light-danger { background: #fdeaea; }
+.bg-light-primary { background: #e7f1ff; }
+.bg-light-warning { background: #fff4e5; }
+.bg-light-success { background: #e6f4ea; }
+
+/* FOOTER */
+footer {
+    margin-top: 20px;
+}
+
+.navbar {
+    background: white !important;
+}
+
+.form-control {
+    background: #f1f1f1 !important;
+    color: #000 !important;
+}
