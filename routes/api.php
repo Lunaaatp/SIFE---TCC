@@ -43,6 +43,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/frequencia', [FrequenciaApiController::class, 'salvarFrequencia']);
 
     // RECONHECIMENTO FACIAL
+    Route::post('/reconhecimento/teste-web/cadastrar', [\App\Http\Controllers\ControllersApi\FaceWebTestController::class, 'cadastrar']);
+    Route::post('/reconhecimento/teste-web/reconhecer', [\App\Http\Controllers\ControllersApi\FaceWebTestController::class, 'reconhecer']);
+    Route::delete('/reconhecimento/teste-web/{idAluno}', [\App\Http\Controllers\ControllersApi\FaceWebTestController::class, 'remover']);
     Route::post('/reconhecimento/cadastrar', [ReconhecimentoFacialController::class, 'cadastrar']);
     Route::post('/reconhecimento/reconhecer', [ReconhecimentoFacialController::class, 'reconhecer']);
 });

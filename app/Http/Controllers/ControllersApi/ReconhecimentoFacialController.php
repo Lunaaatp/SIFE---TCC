@@ -52,9 +52,10 @@ class ReconhecimentoFacialController extends Controller
     {
         $dados = $request->validate([
             'id_aluno' => 'required|integer|exists:alunos,id_aluno',
-            'embedding' => 'required|array|min:64|max:1024',
+            'embedding' => 'required|array|list|min:64|max:1024',
             'embedding.*' => 'required|numeric',
             'substituir' => 'sometimes|boolean',
+            'foto' => 'sometimes|image|mimes:jpeg,png,jpg|max:5000',
         ]);
 
         $vetor = $this->normalizar(
@@ -81,6 +82,13 @@ class ReconhecimentoFacialController extends Controller
 
         $amostras = [];
 
+        if (!empty($aluno->face_embedding) && empty($dados['substituir'])) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Este aluno já possui rosto cadastrado.',
+            ], 409);
+        }
+
         if (!empty($aluno->face_embedding)) {
             $amostras = json_decode(
                 $aluno->face_embedding,
@@ -99,7 +107,7 @@ class ReconhecimentoFacialController extends Controller
         if (
             !empty($amostras) &&
             isset($amostras[0]) &&
-            count($amostras[0]) !== count($vetor)
+            (!is_array($amostras[0]) || count($amostras[0]) !== count($vetor))
         ) {
             $amostras = [];
         }
@@ -113,12 +121,33 @@ class ReconhecimentoFacialController extends Controller
             -$maxAmostras
         );
 
-        DB::table('alunos')
-            ->where('id_aluno', $dados['id_aluno'])
-            ->update([
-                'face_embedding' => json_encode($amostras),
-                'face_cadastrada_em' => now(),
-            ]);
+        $caminho = null;
+        try {
+            if ($request->hasFile('foto')) {
+                $caminho = $request->file('foto')->store('alunos_fotos', 'public');
+                if (!$caminho) {
+                    throw new \RuntimeException('Não foi possível armazenar a foto.');
+                }
+            }
+            DB::transaction(function () use ($dados, $amostras, $caminho) {
+                $atualizacao = [
+                    'face_embedding' => json_encode($amostras, JSON_THROW_ON_ERROR),
+                    'face_cadastrada_em' => now(),
+                ];
+                if ($caminho) {
+                    $atualizacao['foto_path'] = $caminho;
+                }
+                DB::table('alunos')->where('id_aluno', $dados['id_aluno'])->update($atualizacao);
+            });
+        } catch (\Throwable $e) {
+            if ($caminho) {
+                Storage::disk('public')->delete($caminho);
+            }
+            throw $e;
+        }
+        if ($caminho && !empty($aluno->foto_path)) {
+            Storage::disk('public')->delete($aluno->foto_path);
+        }
 
         return response()->json([
             'success' => true,
@@ -130,9 +159,10 @@ class ReconhecimentoFacialController extends Controller
     public function reconhecer(Request $request)
     {
         $dados = $request->validate([
-            'embedding' => 'required|array|min:64|max:1024',
+            'embedding' => 'required|array|list|min:64|max:1024',
             'embedding.*' => 'required|numeric',
             'id_turma' => 'nullable|integer',
+            'id_aluno' => 'nullable|integer|exists:alunos,id_aluno',
         ]);
 
         $consulta = $this->normalizar(
@@ -170,6 +200,11 @@ class ReconhecimentoFacialController extends Controller
 
         $ranking = [];
 
+        // Com id_aluno, verifica apenas a identidade informada (1:1).
+        if (!empty($dados['id_aluno'])) {
+            $query->where('alunos.id_aluno', $dados['id_aluno']);
+        }
+
         foreach ($query->get() as $aluno) {
             $amostras = json_decode(
                 $aluno->face_embedding,
@@ -188,6 +223,11 @@ class ReconhecimentoFacialController extends Controller
                 }
 
                 if (count($amostra) !== count($consulta)) {
+                    continue;
+                }
+
+                $amostra = $this->normalizar($amostra);
+                if ($amostra === null) {
                     continue;
                 }
 
@@ -287,12 +327,15 @@ class ReconhecimentoFacialController extends Controller
         $soma = 0;
 
         foreach ($vetor as $valor) {
+            if (!is_numeric($valor) || !is_finite((float) $valor)) {
+                return null;
+            }
             $soma += $valor * $valor;
         }
 
         $norma = sqrt($soma);
 
-        if ($norma < 1e-9) {
+        if (!is_finite($norma) || $norma < 1e-9) {
             return null;
         }
 

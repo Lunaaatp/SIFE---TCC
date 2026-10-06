@@ -27,6 +27,11 @@ class Usuario extends Authenticatable
         'senha'
     ];
 
+    protected function casts(): array
+    {
+        return ['senha' => 'hashed'];
+    }
+
     public function getAuthPassword()
     {
         return $this->senha;

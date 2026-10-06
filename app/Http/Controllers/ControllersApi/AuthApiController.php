@@ -18,13 +18,22 @@ class AuthApiController extends Controller
     {
         $request->validate([
             'email'    => 'required|email',
-            'password' => 'required',
+            'password' => 'required|string',
         ]);
 
         $usuario = Usuario::where('email', $request->email)->first();
 
         // Mesma resposta para "não existe" e "senha errada" (não revela se o e-mail existe)
-        if (!$usuario || !Hash::check($request->password, $usuario->senha)) {
+        $senhaValida = false;
+        if ($usuario) {
+            try {
+                $senhaValida = Hash::check($request->password, $usuario->senha);
+            } catch (\RuntimeException $e) {
+                // Um cadastro com hash inválido deve falhar sem causar HTTP 500.
+                $senhaValida = false;
+            }
+        }
+        if (!$senhaValida) {
             return response()->json([
                 'success' => false,
                 'message' => 'E-mail ou senha inválidos.',

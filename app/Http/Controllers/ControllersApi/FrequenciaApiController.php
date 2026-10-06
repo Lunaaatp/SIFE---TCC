@@ -91,6 +91,8 @@ class FrequenciaApiController extends Controller
                     'alunos.id_aluno',
                     'Usuario.nome as nome_aluno',
                     'Usuario.email as email_aluno',
+                    DB::raw('(alunos.face_embedding IS NOT NULL AND alunos.face_embedding <> \'[]\') as tem_rosto'),
+                    DB::raw('EXISTS(SELECT 1 FROM face_web_tests WHERE face_web_tests.id_aluno = alunos.id_aluno) as tem_rosto_teste'),
                     'Frequencia.status as status_banco'
                 )
                 ->orderBy('Usuario.nome');
@@ -122,6 +124,8 @@ class FrequenciaApiController extends Controller
                         'nome'     => $primeira->nome_aluno,
                         'email'    => $primeira->email_aluno,
                         'status'   => $statusFinal,
+                        'tem_rosto' => (bool) $primeira->tem_rosto,
+                        'tem_rosto_teste' => (bool) $primeira->tem_rosto_teste,
                     ];
                 })
                 ->values();
@@ -220,9 +224,11 @@ class FrequenciaApiController extends Controller
             ]];
         }
 
-        $observacao = $request->input('origem') === 'totem'
-            ? 'Registrado via Totem Facial'
-            : 'Registrado pelo aplicativo';
+        $observacao = match ($request->input('origem')) {
+            'totem' => 'Registrado via Totem Facial',
+            'teste_web' => 'Simulação com foto de teste na web',
+            default => 'Registrado pelo aplicativo',
+        };
 
         try {
             $salvos    = 0;
