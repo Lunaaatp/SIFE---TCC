@@ -156,6 +156,37 @@ class ReconhecimentoFacialController extends Controller
         ]);
     }
 
+    /**
+     * Exclui o rosto cadastrado do aluno (todas as amostras de embedding),
+     * liberando-o para um novo cadastro. A foto do aluno é mantida e será
+     * substituída no próximo cadastro de rosto.
+     */
+    public function remover(int $idAluno)
+    {
+        $existe = DB::table('alunos')
+            ->where('id_aluno', $idAluno)
+            ->exists();
+
+        if (!$existe) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Aluno não encontrado.',
+            ], 404);
+        }
+
+        DB::table('alunos')
+            ->where('id_aluno', $idAluno)
+            ->update([
+                'face_embedding' => null,
+                'face_cadastrada_em' => null,
+            ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Rosto excluído com sucesso.',
+        ]);
+    }
+
     public function reconhecer(Request $request)
     {
         $dados = $request->validate([

@@ -48,4 +48,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/reconhecimento/teste-web/{idAluno}', [\App\Http\Controllers\ControllersApi\FaceWebTestController::class, 'remover']);
     Route::post('/reconhecimento/cadastrar', [ReconhecimentoFacialController::class, 'cadastrar']);
     Route::post('/reconhecimento/reconhecer', [ReconhecimentoFacialController::class, 'reconhecer']);
+    Route::delete('/reconhecimento/{idAluno}', [ReconhecimentoFacialController::class, 'remover'])->whereNumber('idAluno');
 });
